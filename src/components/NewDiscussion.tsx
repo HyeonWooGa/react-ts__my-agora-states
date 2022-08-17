@@ -1,4 +1,12 @@
+import React from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import {
+  inputNameState,
+  inputTitleState,
+  inputContentState,
+  discussionsState,
+} from "../atoms";
 
 const Container = styled.section`
   margin: 20px 0px 10px 0px;
@@ -47,20 +55,61 @@ const Button = styled.button`
 `;
 
 function NewDiscussion() {
+  const [inputName, setInputName] = useRecoilState(inputNameState);
+  const [inputTilte, setInputTitle] = useRecoilState(inputTitleState);
+  const [inputContent, setInputConTent] = useRecoilState(inputContentState);
+  const [discussions, setDiscussions] = useRecoilState(discussionsState);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // console.log(`${inputName}`);
+    // console.log(`${inputTilte}`);
+    // console.log(`${inputContent}`);
+
+    const newDiscussion = {
+      answer: null,
+      author: inputName,
+      bodyHTML: inputContent,
+      avatarUrl: "",
+      createdAt: new Date().toISOString(),
+      id: 11111,
+      title: inputTilte,
+      updatedAt: new Date().toISOString(),
+      url: "https://velog.io/@HyeonWooGa",
+    };
+
+    setDiscussions([...discussions, newDiscussion]);
+
+    console.log("new.tsx", discussions);
+  };
   return (
     <Container>
-      <Form action="" method="get">
+      <Form action="" method="get" onSubmit={handleSubmit}>
         <Wrapper>
           <NameAndTitle>
             <label htmlFor="name">Enter your name: </label>
-            <input type="text" id="name" required />
+            <input
+              onChange={(event) => setInputName(event.currentTarget.value)}
+              type="text"
+              id="name"
+              required
+            />
           </NameAndTitle>
           <NameAndTitle>
             <label htmlFor="title">Enter your title: </label>
-            <input type="text" id="title" required />
+            <input
+              onChange={(event) => setInputTitle(event.currentTarget.value)}
+              type="text"
+              id="title"
+              required
+            />
           </NameAndTitle>
           <LabelText htmlFor="question">Your Question: </LabelText>
-          <TextArea id="question" placeholder="질문을 작성하세요" required />
+          <TextArea
+            onChange={(event) => setInputConTent(event.currentTarget.value)}
+            id="question"
+            placeholder="질문을 작성하세요"
+            required
+          />
         </Wrapper>
         <Button type="submit">입력</Button>
       </Form>

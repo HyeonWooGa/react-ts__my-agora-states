@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { discussionsState, IDiscussion } from "../atoms";
 import Discussion from "./Discussion";
 
 const Container = styled.section`
@@ -11,26 +13,15 @@ const Ul = styled.ul`
   padding: 0;
 `;
 
-export interface IDiscussion {
-  nswer: object;
-  author: string;
-  avatarUrl: string;
-  bodyHTML: string;
-  createdAt: string;
-  id: number;
-  title: string;
-  updatedAt: string;
-  url: string;
-}
-
 function Discussions() {
-  const [discussions, setDiscussions] = useState<IDiscussion[]>();
+  const [discussions, setDiscussions] =
+    useRecoilState<IDiscussion[]>(discussionsState);
   useEffect(() => {
     (async () => {
       const newDiscussions = await (
         await fetch("http://localhost:4000/discussions")
       ).json();
-      //console.log(newDiscussions);
+      console.log(newDiscussions);
       setDiscussions(newDiscussions);
     })();
   }, []);

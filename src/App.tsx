@@ -3,6 +3,7 @@ import Discussions from "./components/Discussions";
 import NewDiscussion from "./components/NewDiscussion";
 
 const Container = styled.div`
+  background-color: rgb(252, 248, 244);
   color: rgb(98, 124, 147);
   border: none;
   width: 100vw;

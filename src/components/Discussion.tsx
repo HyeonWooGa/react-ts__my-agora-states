@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IDiscussion } from "./Discussions";
+import { IDiscussion } from "../atoms";
 
 const Img = styled.img`
   border-radius: 50%;
@@ -8,6 +8,9 @@ const Img = styled.img`
 
 const Li = styled.li`
   width: 540px;
+  background-color: white;
+  padding: 5px;
+  margin-bottom: 5px;
 `;
 
 const Wrapper = styled.div`
@@ -16,7 +19,6 @@ const Wrapper = styled.div`
   align-items: center;
   height: 80px;
   margin: 10px 0px;
-  background-color: white;
 `;
 
 const ContentBox = styled.div`
@@ -47,7 +49,7 @@ function Discussion({ discussion }: IDiscussionProps) {
           </h3>
           <div>{`${discussion.author} / ${discussion.updatedAt}`}</div>
         </ContentBox>
-        <AnswerdBox>☑</AnswerdBox>
+        <AnswerdBox>{discussion.answer ? "☑" : "☒"}</AnswerdBox>
       </Wrapper>
     </Li>
   );
